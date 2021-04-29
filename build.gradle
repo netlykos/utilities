@@ -1,0 +1,57 @@
+plugins {
+  id 'eclipse'
+  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+  id 'idea'
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'java-library'
+  apply plugin: 'jacoco'
+  apply plugin: 'io.spring.dependency-management'
+
+  group = 'org.netlykos'
+  version = '0.0.1-SNAPSHOT'
+  sourceCompatibility = '11'
+  
+  configurations {
+    compileOnly {
+      extendsFrom annotationProcessor
+    }
+  }
+  
+  repositories {
+    mavenCentral()
+  }
+  
+  dependencyManagement {
+    imports {
+      mavenBom 'org.springframework.boot:spring-boot-dependencies:2.4.+'
+    }
+  }
+
+  dependencies {
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    if (project.name != "test-support") {
+      testImplementation(project(':test-support'))
+    }
+  }
+
+  test {
+    useJUnitPlatform()
+
+    systemProperties['java.net.preferIPv4Stack'] = 'true'
+
+    // ignore failures until we can get the build working in the environment
+    ignoreFailures = true
+
+    // Show data from standard out when running tests
+    testLogging.events = ["standardOut", "skipped", "failed"]
+    testLogging.showStandardStreams = true
+    testLogging.exceptionFormat = 'full'
+  }
+
+}
+

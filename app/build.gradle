@@ -1,0 +1,12 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.5'
+	id 'java'
+}
+
+dependencies {
+	project ':dbquery'
+	project ':command'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+

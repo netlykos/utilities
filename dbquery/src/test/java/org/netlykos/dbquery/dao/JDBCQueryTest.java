@@ -64,6 +64,12 @@ public class JDBCQueryTest {
     assertEquals(entriesInDb, list.size());
     assertNotNull(list);
     assertFalse(list.isEmpty());
+
+    // Query for a value larger than maxRowSize
+    list = dataQuery.queryForList(query, Collections.emptyMap(), 51);
+    assertEquals(entriesInDb, list.size());
+    assertNotNull(list);
+    assertFalse(list.isEmpty());
   }
 
   @Test

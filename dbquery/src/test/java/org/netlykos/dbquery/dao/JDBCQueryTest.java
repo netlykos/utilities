@@ -1,9 +1,11 @@
 package org.netlykos.dbquery.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +46,22 @@ public class JDBCQueryTest {
         LOGGER.debug("{}: {}", entry.getKey(), entry.getValue());
       }
     }
+    assertNotNull(list);
+    assertFalse(list.isEmpty());
+  }
+
+  @Test
+  public void testQueryForListWithResultSize() {
+    String query = "select * from book";
+    int rowSize = 2;
+    List<Map<String, Object>> list = dataQuery.queryForList(query, Collections.emptyMap(), rowSize);
+    assertEquals(rowSize, list.size());
+    assertNotNull(list);
+    assertFalse(list.isEmpty());
+
+    int entriesInDb = 8; // should match 8 rows inserted via data-hsqldb.sql
+    list = dataQuery.queryForList(query, Collections.emptyMap(), 0);
+    assertEquals(entriesInDb, list.size());
     assertNotNull(list);
     assertFalse(list.isEmpty());
   }

@@ -23,7 +23,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ActiveProfiles("unit-test")
 @JdbcTest(includeFilters = @ComponentScan.Filter(Repository.class))
 @ContextConfiguration(classes = {JDBCQuery.class})
-public class JDBCQueryTest {
+class JDBCQueryTest {
 
   private static final Logger LOGGER = LogManager.getLogger();
 
@@ -31,7 +31,7 @@ public class JDBCQueryTest {
   private JDBCQuery dataQuery;
 
   @Test
-  public void testQueryForList() {
+  void testQueryForList() {
     String query = "select * from book where submission_date > :submission_date";
     Map<String, Object> parameters = new HashMap<>();
     int year = 2000, month = 1, dayOfMonth = 1, hour = 0, minute = 0;
@@ -51,7 +51,7 @@ public class JDBCQueryTest {
   }
 
   @Test
-  public void testQueryForListWithResultSize() {
+  void testQueryForListWithResultSize() {
     String query = "select * from book";
     int rowSize = 2;
     List<Map<String, Object>> list = dataQuery.queryForList(query, Collections.emptyMap(), rowSize);
@@ -73,7 +73,7 @@ public class JDBCQueryTest {
   }
 
   @Test
-  public void testQueryForRow() {
+  void testQueryForRow() {
     String query = "select * from book where id = :id";
     Map<String, Object> parameters = new HashMap<>();
     parameters.put("id", 1);

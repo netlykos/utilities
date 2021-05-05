@@ -1,12 +1,12 @@
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-	<springProperty scope="context" name="springAppName" source="spring.application.name"/>
+	<springProperty scope="context" name="springAppName" source="spring.application.name" />
 
 	<!-- console appender -->
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
 		<encoder>
-			<Pattern>%-5level [${springAppName}] %date{ISO8601} [%t] %logger::%method \(%file:%line\) %msg%n</Pattern>
+			<Pattern>%-5level [${springAppName:-app}] %date{ISO8601} [%t] %logger::%method \(%file:%line\) %msg%n</Pattern>
 		</encoder>
 	</appender>
 

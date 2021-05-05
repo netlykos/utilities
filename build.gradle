@@ -2,6 +2,7 @@ plugins {
   id 'eclipse'
   id 'io.spring.dependency-management' version '1.0.11.RELEASE'
   id 'idea'
+  id 'org.sonarqube' version '3.2.0'
 }
 
 subprojects {
@@ -33,8 +34,9 @@ subprojects {
   dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    if (project.name != "test-support") {
+    if (project.name != 'test-support') {
       testImplementation(project(':test-support'))
     }
   }
@@ -45,11 +47,10 @@ subprojects {
     systemProperties['java.net.preferIPv4Stack'] = 'true'
 
     // ignore failures until we can get the build working in the environment
-    ignoreFailures = true
+    ignoreFailures = false
 
-    // Show data from standard out when running tests
-    testLogging.events = ["standardOut", "skipped", "failed"]
-    testLogging.showStandardStreams = true
+    // Add 'standardOut' to the event list if you want to see it in the build
+    testLogging.events = ['skipped', 'failed']
     testLogging.exceptionFormat = 'full'
 
     // report is always generated after tests run
@@ -65,4 +66,12 @@ subprojects {
     }
   }
 
+}
+
+sonarqube {
+  properties {
+    property "sonar.projectKey", "netlykos_utilities"
+    property "sonar.organization", "netlykos"
+    property "sonar.host.url", "https://sonarcloud.io"
+  }
 }

@@ -1,0 +1,7 @@
+@HOST_ENDPOINT=localhost:8080
+
+#### Simple request
+POST http://{{HOST_ENDPOINT}}
+
+
+####

@@ -4,4 +4,5 @@ dependencies {
 
   runtimeOnly 'org.hsqldb:hsqldb'
   testImplementation 'org.hsqldb:hsqldb'
+  // testImplementation project(':test-support')
 }

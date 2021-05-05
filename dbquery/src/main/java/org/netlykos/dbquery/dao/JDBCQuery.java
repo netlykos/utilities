@@ -20,7 +20,7 @@ public class JDBCQuery {
   @Autowired
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-  @Value("${org.netlykos.dbquery.jdbcQuery.maxResultSize:50}")
+  @Value("${org.netlykos.dbquery.jdbcQuery.maxResultSize:100}")
   private int maxResultSize;
 
   public Map<String, Object> queryForMap(String query, Map<String, Object> parameters) {
@@ -34,7 +34,7 @@ public class JDBCQuery {
 
   public List<Map<String, Object>> queryForList(String query, Map<String, Object> parameters, int resultSize) {
     // fetch size cannot be infinite and cannot be larger than the maxResultSize defined
-    int maxRows = resultSize < 1 ?  maxResultSize : resultSize > maxResultSize ? maxResultSize : resultSize;
+    int maxRows = resultSize < 1 || resultSize > maxResultSize ? maxResultSize : resultSize;
     namedParameterJdbcTemplate.getJdbcTemplate().setFetchSize(maxRows);
     namedParameterJdbcTemplate.getJdbcTemplate().setMaxRows(maxRows);
     return namedParameterJdbcTemplate.queryForList(query, parameters);

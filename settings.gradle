@@ -1,6 +1,5 @@
 rootProject.name = 'utilities'
 
-include 'command'
 include 'dbquery'
 include 'test-support'
 include 'app'
